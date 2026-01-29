@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Pomodoro Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center p-4">
+    <!-- Theme toggle (Day / Night) -->
+    <button id="theme-toggle" class="fixed top-6 right-6 z-50 bg-gray-700 text-white p-2 rounded-full shadow-md hover:scale-105 transition-transform" aria-label="Toggle theme">🌙</button>
+    <div class="w-full max-w-md bg-gray-800 shadow-2xl rounded-2xl p-8 border border-white text-center transition-all duration-700">
+        <h1 class="text-3xl font-bold text-center mb-7 text-gray-100">⏱️Pomodoro Timer </h1>
+        <p class="text-center text-gray-400 mb-5"> ! Stay focused, stay productive! </p>
+        
+        <!-- Setup Section (Hidden when timer starts) -->
+        <div id="setup-section" class="bg-gradient-to-br from-gray-700 to-gray-600 rounded-xl p-6 mb-6 space-y-4 border border-gray-600">
+            <h2 class="text-lg font-semibold mb-4">🎯 Customize Your Session</h2>
+            
+            <div>
+                <label for="work-duration" class="block text-sm font-medium mb-2">How long to focus? (minutes)</label>
+                <div class="flex items-center gap-3">
+                    <input 
+                        type="Number"
+                        id="work-duration" 
+                        value="10"
+                        min="0.1"
+                        max="60"
+                        class="flex-1 px-4 py-2 bg-gray-600 rounded-lg text-white text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-red-500 border border-gray-500"
+                    >
+                    <span class="text-gray-400">min</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">Recommended: 10 minutes</p>
+            </div>
+            
+            <div>
+                <label for="break-duration" class="block text-sm font-medium mb-2">How long to break? (minutes)</label>
+                <div class="flex items-center gap-3">
+                    <input 
+                        type="number" 
+                        id="break-duration" 
+                        value="5" 
+                        min="0"
+                        max="30"
+                        class="flex-1 px-4 py-2 bg-gray-600 rounded-lg text-white text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-green-500 border border-gray-500"
+                    >
+                    <span class="text-gray-400">min</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">Recommended: 5 minutes</p>
+            </div>
+            
+            <button 
+                onclick="setCustomDuration()"
+                class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] text-lg"
+            >
+               Set Durations
+
+            </button>
+        </div>
+
+        <!-- Timer Display -->
+        <div id="timer-box" class="container bg-gradient-to-br from-red-600 to-red-700 rounded-xl p-6 mb-6 border border-red-500 text-center relative">
+            <p id="phase-status" class="text-2xl font-semibold mb-2">💪 Work Session</p>
+            <p id="phase-message" class="text-sm text-gray-100 mb-4">Focus and stay productive!</p>
+            <div id="timer-display" class="timer-display text-white">10:00</div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar mt-6">
+                <div id="progress-fill" class="progress-fill" style="width: 100%"></div>
+            </div>
+            
+            <p id="time-info" class="motivational-text mt-2">Remaining in this session</p>
+            
+            <!-- Add Time Buttons -->
+            <div class="flex gap-2 mt-4 justify-center">
+                <button onclick="addTime(60)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg text-sm transition-all">+1 min</button>
+                <button onclick="addTime(300)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg text-sm transition-all">+5 min</button>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="space-y-3 mb-6">
+            <button 
+                onclick="startTimer()"
+                id="start-btn"
+                class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] text-lg"
+            >
+                ▶Start Session
+            </button>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <button 
+                    onclick="pauseTimer()"
+                    id="pause-btn"
+                    class="bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-yellow-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    ⏸️ Pause
+                </button>
+                
+                <button 
+                    onclick="resetTimer()"
+                    class="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                    🔄 Reset Timer
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics & Tips -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
+                <p class="text-gray-400 text-sm">Sessions Done</p>
+                <p id="session-count" class="text-3xl font-bold text-green-400 mt-1">0</p>
+            </div>
+            <div class="bg-gray-700 rounded-lg p-4 text-center border border-gray-600">
+                <p class="text-gray-400 text-sm">Total Focus</p>
+                <p id="total-time" class="text-3xl font-bold text-blue-400 mt-1">0h</p>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="bg-blue-900 bg-opacity-40 rounded-lg p-4 border border-blue-700">
+            <p id="tip-text" class="text-sm text-blue-200">💡 Tip: Turn off notifications for better focus!</p>
+        </div>
+    </div>
+
+    <script src="Pomodoro.js"></script>
+</body>
+</html>
