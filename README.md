@@ -52,12 +52,12 @@ This project marks the completion of my fundamentals journey and sets the stage 
 # Open index.html in your browser
 ```
 🤝 Connect With Me
-```
-💼 LinkedIn Profile [https://www.linkedin.com/in/om-satarkar-2579392b8 ](https://www.linkedin.com/in/om-satarkar-2579392b8/)
-🌐 GitHub Profile [ https://github.com/omvs54](https://github.com/omvs54/pomodoro-focus-timer)
+
+💼 LinkedIn Profile [(https://www.linkedin.com/in/om-satarkar-2579392b8/)]
+🌐 GitHub Profile [(https://github.com/omvs54/pomodoro-focus-timer)]
 
 If you liked this project, feel free to ⭐ the repo and share it!
-```
+
 📝 License
 ```
 This project is licensed under the MIT License – free to use and modify.
