@@ -53,8 +53,8 @@ This project marks the completion of my fundamentals journey and sets the stage 
 ```
 🤝 Connect With Me
 ```
-💼 LinkedIn Profile  www.linkedin.com/in/om-satarkar-2579392b8
-🌐 GitHub Profile  https://github.com/omvs54
+💼 LinkedIn Profile [https://www.linkedin.com/in/om-satarkar-2579392b8 ](https://www.linkedin.com/in/om-satarkar-2579392b8/)
+🌐 GitHub Profile [ https://github.com/omvs54](https://github.com/omvs54/pomodoro-focus-timer)
 
 If you liked this project, feel free to ⭐ the repo and share it!
 ```
